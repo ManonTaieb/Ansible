@@ -1,5 +1,7 @@
 -host: remote
+  remote_user: root
   gather_facts: false
+  
   vars_promt:
     -name:      "Package_name"
       promt:    "Which package do you want to install?"
