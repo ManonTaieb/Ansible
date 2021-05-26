@@ -1,0 +1,14 @@
+-host: remote
+  gather_facts: false
+  vars_promt:
+    -name:      "Package_name"
+      promt:    "Which package do you want to install?"
+    -name:      "Version"
+      promt:    "Which version do you want to install?"
+      default:  "latest"
+  
+  tasks:
+    -name:      install packages
+      apt: 
+        name:   "{{ Packages_name }}"
+        state:  "{{ Version | default('latest') }}"
