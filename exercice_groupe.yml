@@ -1,18 +1,19 @@
--host: remote
-  remote_user: root
+- host: remote
   gather_facts: false
+  become: true
+  become_user: root
   
   vars_promt:
-    -name:      "Package_name"
+    - name:      "Package_name"
       promt:    "Which package do you want to install?"
       private:  no
-    -name:      "Version"
+    - name:      "Version"
       promt:    "Which version do you want to install?"
       default:  "latest"
       private:  no
   
   tasks:
-    -name:      install packages
+    - name:      install packages
       apt: 
         name:   "{{ Package_name }}"
         state:  "{{ Version | default('latest') }}"
