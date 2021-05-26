@@ -3,11 +3,11 @@
   become: true
   become_user: root
   
-  vars_promt:
-    - name:      "Package_name"
+  vars_prompt:
+    - name:     "Package_name"
       promt:    "Which package do you want to install?"
       private:  no
-    - name:      "Version"
+    - name:     "Version"
       promt:    "Which version do you want to install?"
       default:  "latest"
       private:  no
