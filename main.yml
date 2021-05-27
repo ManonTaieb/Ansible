@@ -6,18 +6,29 @@
   set_fact:
     vm_password: "{{ lookup('password', '/tmp/passwordfile chars=ascii_letters,digits,hexdigits,punctuation') }}"
 
- - name: Create VM
-    azure_rm_virtualmachine:
-      resource_group: "{{ RessourcesGroupe }}"
-      name: "{{ NomDeVm }}"
-      vm_size: Standard_A1_v2
-      admin_username: azureuser
-      admin_password: "{{ vm_password }}"
-      network_interfaces: "{{  interfaceReseau  }}[0]"
-      os_type: Windows
-      image:
+- name: Create a network interface
+  azure_rm_networkinterface:
+    name: nic-cs-web
+    resource_group: rg-cs-ansible
+    virtual_network: vnet-cs-web
+    subnet_name: snet-cs-web
+    security_group: nsg-cs-web
+    ip_configurations:
+    - name: default
+      public_ip_address_name: pip-cs-web
+      primary: True
 
-        offer: WindowsServer
-        publisher: MicrosoftWindowsServer
-        sku: 2019-Datacenter
-        version: latest
+- name: Create VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ RessourcesGroupe }}"
+    name: "{{ NomDeVm }}"
+    vm_size: Standard_A1_v2
+    admin_username: azureuser
+    admin_password: "{{ vm_password }}"
+    network_interfaces: "{{  interfaceReseau  }}[0]"
+    os_type: Windows
+    image:
+      offer: WindowsServer
+      publisher: MicrosoftWindowsServer
+      sku: 2019-Datacenter
+      version: latest
