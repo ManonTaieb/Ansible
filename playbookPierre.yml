@@ -1,0 +1,14 @@
+---
+- hosts: local
+  connection: local
+  vars:
+    RessourcesGroupe: "MonPetitRG"
+    NomDeVm: "MaMachine1"
+    NomDeReseau: "LeReseau"
+    vn_name: "ReseauVirtuel"
+    NomDuGroupeSecu: "SecuGroupe"
+
+  roles:
+    - vm
+    - vnet
+    - server
